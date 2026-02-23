@@ -1,0 +1,10 @@
+secret_key = "1"
+proposal_id = "7"
+vote_option = "1"
+
+# commitment = poseidon(secret_key, secret_key)
+commitment = "217234377348884654691879377518794323857294947151490278790710809376325639809"
+
+# nullifier = poseidon(secret_key, proposal_id)
+# Replace with the correct value after computing in-app or with garaga_rs.
+nullifier = "0"
