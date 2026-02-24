@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="860" viewBox="0 0 1200 860">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f3a4a"/>
+    </marker>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #1f2937; }
+      .box { fill: #f8fafc; stroke: #2f3a4a; stroke-width: 2; rx: 12; }
+      .note { fill: #fff7ed; stroke: #9a3412; stroke-width: 2; rx: 10; }
+      .txt { font: 600 18px Arial, sans-serif; fill: #111827; }
+      .sub { font: 500 15px Arial, sans-serif; fill: #374151; }
+      .line { stroke: #2f3a4a; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <text x="40" y="42" class="title">Private Governance Flow (Starknet)</text>
+
+  <rect x="40" y="80" width="320" height="120" class="box"/>
+  <text x="60" y="118" class="txt">1) Proposal Creation</text>
+  <text x="60" y="148" class="sub">Admin -&gt; Contract:</text>
+  <text x="60" y="170" class="sub">create_proposal(proposal_id, options_count)</text>
+
+  <rect x="440" y="80" width="340" height="120" class="box"/>
+  <text x="460" y="118" class="txt">2) Commitment Registration</text>
+  <text x="460" y="148" class="sub">Local: commitment = H(secret_key, secret_key)</text>
+  <text x="460" y="170" class="sub">Wallet -&gt; Contract: register_commitment(commitment)</text>
+
+  <rect x="860" y="80" width="300" height="120" class="note"/>
+  <text x="880" y="118" class="txt">Public after step 2</text>
+  <text x="880" y="148" class="sub">commitment hash</text>
+  <text x="880" y="170" class="sub">sender wallet</text>
+
+  <rect x="40" y="280" width="500" height="140" class="box"/>
+  <text x="60" y="318" class="txt">3) Proof Generation (Browser)</text>
+  <text x="60" y="348" class="sub">Local: nullifier = H(secret_key, proposal_id)</text>
+  <text x="60" y="370" class="sub">Local: generate ZK proof with public inputs</text>
+  <text x="60" y="392" class="sub">(proposal_id, vote_option, commitment, nullifier)</text>
+
+  <rect x="620" y="280" width="540" height="140" class="box"/>
+  <text x="640" y="318" class="txt">4) Onchain Verification + Vote</text>
+  <text x="640" y="348" class="sub">Wallet -&gt; Governance: cast_private_vote(proof)</text>
+  <text x="640" y="370" class="sub">Governance -&gt; Verifier: verify proof</text>
+  <text x="640" y="392" class="sub">Checks: commitment exists, owner==sender, nullifier unused</text>
+
+  <rect x="40" y="520" width="1120" height="120" class="note"/>
+  <text x="60" y="558" class="txt">Publicly visible onchain</text>
+  <text x="60" y="586" class="sub">proposal_id, vote_option, commitment hash, nullifier hash, sender wallet, final tally</text>
+  <text x="60" y="614" class="sub">Not visible: secret_key, witness internals</text>
+
+  <rect x="40" y="700" width="1120" height="110" class="note"/>
+  <text x="60" y="738" class="txt">Current privacy scope</text>
+  <text x="60" y="766" class="sub">This prototype proves vote validity and prevents replay/double-use of nullifiers.</text>
+  <text x="60" y="790" class="sub">Vote option and sender are still public in the current implementation.</text>
+
+  <path d="M360 140 L440 140" class="line"/>
+  <path d="M780 140 L860 140" class="line"/>
+  <path d="M290 200 L290 280" class="line"/>
+  <path d="M790 200 L790 280" class="line"/>
+  <path d="M540 350 L620 350" class="line"/>
+  <path d="M600 420 L600 520" class="line"/>
+  <path d="M600 640 L600 700" class="line"/>
+</svg>
